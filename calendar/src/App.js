@@ -1,8 +1,8 @@
 import React from 'react';
-import Main from './components/Main';
+import Calendar from './components/Calendar';
 function App() {
   return (
-    <Main/>
+    <Calendar/>
   );
 }
 

@@ -19,6 +19,7 @@ code {
   outline: 1px solid black;
   margin: 0.2rem;
   overflow: hidden;
+  
 }
 
 .placeholder {
@@ -43,4 +44,31 @@ code {
   height: 10px;
   width: 100%;
   background-color: #555;
+  display: block;
+}
+
+.day-label {
+  text-align: center;
+  width: 7rem;
+  margin: 0.2rem;
+  display: inline-block;
+}
+
+.grid-row { 
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.start {
+  width: 40%;
+  margin-left: 60%;
+}
+
+.end {
+  width: 40%;
+}
+
+.start-end {
+  width: 80%;
+  margin-left: 10%;
 }

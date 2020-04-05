@@ -1,6 +1,6 @@
 import React from "react";
 import { monthToString } from "../helpers/calendarGeneration";
-const Header = ({ events, view, setView, generateMonth }) => {
+const Header = ({ events, view, changeView}) => {
   const handleMonthChange = operator => {
     let month;
     let year;
@@ -13,12 +13,7 @@ const Header = ({ events, view, setView, generateMonth }) => {
       month = view.month === (0) ? 11 : view.month + operator;
     }
 
-    const currentMonth = generateMonth(month, year);
-    setView({
-      year,
-      month,
-      currentMonth
-    });
+    changeView(month, year)
   };
   const days = [
     "Sunday",

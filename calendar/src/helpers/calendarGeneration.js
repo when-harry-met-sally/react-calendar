@@ -75,3 +75,10 @@ export const monthToString = m => {
   }
   return month;
 };
+
+export const isSameDay = (i, j) => {
+    if (i.getDate() === j.getDate() && i.getFullYear() === j.getFullYear() && i.getMonth() === j.getMonth()){
+        return true
+    }
+    return false
+}  

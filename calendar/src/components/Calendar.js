@@ -11,11 +11,14 @@ const Calendar = () => {
     currentMonth: generateMonth(new Date().getMonth(), new Date().getFullYear())
   });
   useEffect(() => {
-    axios.get("http://localhost:5000").then(res => setEvents(res.data));
+    axios.get("http://localhost:5000").then((res) => {
+        console.log(res)
+        setEvents(res.data)
+    });
   }, []);
   return (
     <>
-      <Header view={view} setView={setView} generateMonth={generateMonth}/>
+      <Header events={events} view={view} setView={setView} generateMonth={generateMonth}/>
       <Frame events={events} view={view} />
     </>
   );

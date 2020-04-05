@@ -1,16 +1,16 @@
 import React from "react";
 import { monthToString } from "../helpers/calendarGeneration";
-const Header = ({ view, setView, generateMonth }) => {
+const Header = ({ events, view, setView, generateMonth }) => {
   const handleMonthChange = operator => {
     let month;
     let year;
     if (operator === 1) {
-      year = view.month === 11 ? view.year + operator : view.year;
-      month = view.month === 11 ? 0 : view.month + operator;
+      year = view.month === (11) ? view.year + operator : view.year;
+      month = view.month === (11) ? (0) : view.month + operator;
     }
     if (operator === -1) {
-      year = view.month === 0 ? view.year + operator : view.year;
-      month = view.month === 0 ? 11 : view.month + operator;
+      year = view.month === (0) ? view.year + operator : view.year;
+      month = view.month === (0) ? 11 : view.month + operator;
     }
 
     const currentMonth = generateMonth(month, year);
@@ -34,6 +34,7 @@ const Header = ({ view, setView, generateMonth }) => {
       <div>
         <span>{monthToString(view.month)} </span>
         <span>{view.year}</span>
+  <span>{events.length === 0 && ' - EVENTS FAILED TO LOAD'}</span>
       </div>
       <input
         type="button"

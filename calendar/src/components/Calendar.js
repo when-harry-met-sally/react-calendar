@@ -8,11 +8,28 @@ const Calendar = () => {
   const generateCells = (month, events) => {
     const cells = [];
     month.forEach(day => {
-        const ev = []
+      const ev = [];
+      if (day.d) {
+        const positions = []
         events.forEach(event => {
-            
-        })
-      cells.push(<Cell events={[]} day={day} />);
+          const start = event.start;
+          const end = event.end;
+          const startSame = isSameDay(start, day.d);
+          const endSame = isSameDay(end, day.d);
+          const between = start < day.d && end > day.d;
+          if (startSame && endSame) {
+            ev.push({ style: "single", color: event.color, event: event });
+          } else if (startSame) {
+            ev.push({ style: "start", color: event.color, event: event});
+          } else if (endSame) {
+            ev.push({ style: "end", color: event.color, event: event });
+          } else if (between) {
+            ev.push({ style: "between", color: event.color, event: event });
+          }
+        });
+      }
+      console.log(ev)
+      cells.push(<Cell events={ev} day={day} />);
     });
     return cells;
   };
@@ -29,6 +46,21 @@ const Calendar = () => {
       cells: generateCells(currentMonth, e ? e : events)
     });
   };
+  const colors = e => {
+    let color;
+    switch (e.organizer.displayName) {
+      case "Fort Moran":
+        color = "blue";
+        break;
+      case "Fort Guac":
+        color = "green";
+        break;
+      default:
+        color = "black";
+        break;
+    }
+    return color;
+  };
   useEffect(() => {
     axios.get("http://localhost:5000").then(res => {
       console.log(res);
@@ -42,9 +74,11 @@ const Calendar = () => {
         const temp = {
           ...event,
           start: new Date(start),
-          end: new Date(end)
+          end: new Date(end),
+          color: colors(event)
         };
-        standardized.push(temp)
+
+        standardized.push(temp);
       });
       setEvents(standardized);
       changeView(new Date().getMonth(), new Date().getFullYear(), standardized);

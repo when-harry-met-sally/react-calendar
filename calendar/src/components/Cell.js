@@ -3,11 +3,10 @@ const Cell = ({ day, events }) => {
   if (day.placeholder) {
     return <div className="placeholder cell"></div>;
   }
-  console.log(events)
   return (
     <div className="cell">
       <div>{day.date}</div>
-      <div>{events.map(event => <div className='dot green'></div>)}</div>
+      <div>{events.map(event => <div className={'marker ' + event.style} style={{backgroundColor: event.color}}></div>)}</div>
     </div>
   );
 };

@@ -7,29 +7,53 @@ import Cell from "./Cell";
 const Calendar = () => {
   const generateCells = (month, events) => {
     const cells = [];
+    let positions = [];
     month.forEach(day => {
-      const ev = [];
+      const remove = []
+      let dailyEvents = [];
       if (day.d) {
-        const positions = []
         events.forEach(event => {
+          event.color = colors(event)
           const start = event.start;
           const end = event.end;
           const startSame = isSameDay(start, day.d);
           const endSame = isSameDay(end, day.d);
           const between = start < day.d && end > day.d;
-          if (startSame && endSame) {
-            ev.push({ style: "single", color: event.color, event: event });
+          if ((startSame && endSame)) {
+            let i = 0;
+            while (true) {
+              if (!positions.includes(i)) {
+                event.position = i;
+                dailyEvents.push({...event, styling: "single"})
+                positions.push(i)
+                remove.push(i)
+                break
+              }
+              i++
+            }
           } else if (startSame) {
-            ev.push({ style: "start", color: event.color, event: event});
+            let i = 0;
+            while (true) {
+              if (!positions.includes(i)) {
+                event.position = i;
+                dailyEvents.push({...event, styling: "start"})
+                positions.push(i)
+                break
+              }
+              i++
+            }
           } else if (endSame) {
-            ev.push({ style: "end", color: event.color, event: event });
+            positions = positions.filter(p => p != event.position)
+            dailyEvents.push({...event, styling: "end"})
           } else if (between) {
-            ev.push({ style: "between", color: event.color, event: event });
+            dailyEvents.push({...event, styling: "between"})
           }
         });
       }
-      console.log(ev)
-      cells.push(<Cell events={ev} day={day} />);
+      day.positions = positions.sort((a, b) => a - b)
+      dailyEvents = dailyEvents.sort((a, b) => a.position - b.position)
+      cells.push(<Cell day={day} events={dailyEvents}/>);
+      positions = positions.filter(p => !remove.includes(p))
     });
     return cells;
   };

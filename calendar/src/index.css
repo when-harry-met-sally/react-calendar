@@ -12,6 +12,9 @@ code {
     monospace;
 }
 
+.black {
+  background-color: black;
+}
 .day-label {
   text-align: center;
   width: 7rem;
@@ -31,6 +34,10 @@ code {
 .placeholder {
   background-color: rgb(218, 218, 218);
   outline: none;
+}
+
+.hidden {
+  visibility: hidden;
 }
 
 .marker {

@@ -80,3 +80,26 @@ code {
   margin-left: 20%;
   border-radius: 5px 0 0 5px;
 }
+
+.focus {
+  background-color: black;
+}
+
+/*.focus {*/
+/*  animation: colorchange 5s; !* animation-name followed by duration in seconds*!*/
+/*  !* you could also use milliseconds (ms) or something like 2.5s *!*/
+/*  -webkit-animation: colorchange 5s; !* Chrome and Safari *!*/
+/*}*/
+
+
+/*@keyframes colorchange*/
+/*{*/
+/*  0%   {background: red;}*/
+/*  50%  {background: blue;}*/
+/*}*/
+
+/*@-webkit-keyframes colorchange !* Safari and Chrome - necessary duplicate *!*/
+/*{*/
+/*  0%   {background: red;}*/
+/*  50%  {background: blue;}*/
+/*}*/

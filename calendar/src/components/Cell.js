@@ -1,6 +1,6 @@
 import React from "react";
 
-const Cell = ({day}) => {
+const Cell = ({day, setFocus, focus}) => {
     const events = day.events
     if (day.placeholder) {
         return <div className="placeholder cell"></div>;
@@ -24,14 +24,14 @@ const Cell = ({day}) => {
             orderedEvents.push({...e[0]})
         }
     }
-
+    console.log(focus)
     return (
         <div className="cell">
             <div>{day.date}</div>
             <div>
                 {orderedEvents.map(event => (
-                    <div
-                        className={"marker " + event.style}
+                    <div onMouseOver={() => setFocus(event.event)}
+                        className={"marker " + event.style + " " + (focus && event.event.id == focus.id ? 'focus': '')}
                         style={{backgroundColor: event.event.color}}
                     ></div>
                 ))}

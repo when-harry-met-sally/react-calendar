@@ -4,11 +4,12 @@ import Frame from "../components/Frame";
 import {generateMonth} from "../helpers/calendarGeneration";
 import Header from "./Header";
 import Cell from "./Cell";
+import Focus from "./Focus";
 
 const Calendar = () => {
     const [events, setEvents] = useState([]);
     const [view, setView] = useState(null);
-
+    const [focus, setFocus] = useState(null)
     const changeView = (m, y, e) => {
         const currentMonth = generateMonth(m, y, e)
         setView({
@@ -62,7 +63,8 @@ const Calendar = () => {
             {view && (
                 <>
                     <Header events={events} view={view} changeView={changeView}/>
-                    <Frame view={view}/>
+                    <Frame view={view} setFocus={setFocus} focus={focus}/>
+                    <Focus focus={focus}/>
                 </>
             )}
         </>

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import Cell from './Cell';
-const Frame = ({ view }) => {
+const Frame = ({ view, setFocus, focus }) => {
   return (
     <div>
-    {view.currentMonth.map((day, i) =><><Cell day={day}/>{(i + 1) % 7 === 0 && <br/>}</>)}
+    {view.currentMonth.map((day, i) =><><Cell day={day} focus={focus} setFocus={setFocus}/>{(i + 1) % 7 === 0 && <br/>}</>)}
     </div>
   );
 };

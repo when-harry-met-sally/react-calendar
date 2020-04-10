@@ -21,10 +21,12 @@ const Cell = ({ day, events }) => {
     })
   for (let i = 0; i <= max; i++) {
       const e = events.filter(event => event.position === i);
-      if (e.length !== 0){
-        orderedEvents.push(e[0])
+      if (e.length === 0){
+          orderedEvents.push({styling: "hidden", el:'div'}) }
+      else if (e.length === 1){
+          orderedEvents.push({...e[0], el:"div"})
       } else {
-        orderedEvents.push({styling: "hidden"})
+        e.forEach(a => orderedEvents.push({...a, el:"span"}))
       }
   }
 
@@ -33,10 +35,16 @@ const Cell = ({ day, events }) => {
       <div>{day.date}</div>
       <div>
         {orderedEvents.map(event => (
+            event.el === 'div' ?
           <div
             className={"marker " + event.styling}
             style={{ backgroundColor: event.color }}
-          ></div>
+          ></div>:
+                <span
+                    className={"inline-marker " + (event.styling === 'start' ? 'inline-start': event.styling)}
+                    style={{ backgroundColor: event.color }}
+                ></span>
+
         ))}
       </div>
     </div>

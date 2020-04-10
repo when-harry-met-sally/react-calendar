@@ -10,7 +10,7 @@ const dateToObject = d => {
   return d;
 };
 
-export const generateMonth = (m, y) => {
+export const generateMonth = (m, y, e) => {
   const completeMonth = [];
   let initial = new Date(y, m, 1);
   while (true) {
@@ -28,6 +28,7 @@ export const generateMonth = (m, y) => {
     placeholder.push({ placeholder: true });
   }
   const altered =  placeholder.concat(completeMonth)
+  const bonded = bondEvents(altered, e)
   return altered;
 };
 
@@ -81,4 +82,63 @@ export const isSameDay = (i, j) => {
         return true
     }
     return false
-}  
+}
+
+const bondEvents = (month, events) => {
+  let positions = [];
+  month.forEach(day => {
+    const daily = []
+    const remove = []
+    if (day.d) {
+      console.log(day.date)
+      events.forEach(event => {
+        const start = event.start;
+        const end = event.end;
+        const ender = isSameDay(end, day.d);
+        const starter = isSameDay(start, day.d);
+        const betweener = start < day.d && end > day.d;
+        if (starter && ender) {
+          const p = findFirstAvailableSpot(positions)
+          positions.push(p)
+          event.position = p
+          daily.push({event: event, style: 'single'})
+          remove.push(p)
+        } else if (starter) {
+          const p = findFirstAvailableSpot(positions)
+          positions.push(p)
+          event.position = p
+          daily.push({event: event, style: 'start'})
+        } else if (ender) {
+          let p = event.position
+          if (day.date === 1) {
+            positions.push(p)
+          }
+          remove.push(event.position)
+          daily.push({event: event, style: 'end'})
+        } else if (betweener){
+          let p = event.position
+          if (day.date === 1){
+            positions.push(p)
+          }
+          daily.push({event: event, style: 'between'})
+        }
+
+      })
+    }
+    day.positions = positions
+    positions = positions.filter(p => !remove.includes(p))
+    day.events = daily
+  })
+  return month
+}
+
+const findFirstAvailableSpot = (p) => {
+  let i = 0;
+  while (true) {
+    if (!p.includes(i)) {
+      return i
+    }
+    i++
+  }
+}
+

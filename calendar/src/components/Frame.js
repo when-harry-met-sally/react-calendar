@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import Cell from './Cell';
 const Frame = ({ view }) => {
   return (
     <div>
-    {view.cells.map((cell, i) => <span key={i}>{cell}{(i + 1) % 7 === 0 && <div/>}</span>)}
+    {view.currentMonth.map((day, i) =><><Cell day={day}/>{(i + 1) % 7 === 0 && <br/>}</>)}
     </div>
   );
 };

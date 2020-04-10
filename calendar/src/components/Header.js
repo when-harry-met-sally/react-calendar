@@ -13,7 +13,7 @@ const Header = ({ events, view, changeView}) => {
       month = view.month === (0) ? 11 : view.month + operator;
     }
 
-    changeView(month, year)
+    changeView(month, year, events)
   };
   const days = [
     "Sunday",
